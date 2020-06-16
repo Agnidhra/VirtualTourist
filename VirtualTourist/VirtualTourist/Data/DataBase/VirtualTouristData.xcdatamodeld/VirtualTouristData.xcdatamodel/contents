@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="PhotoDetails" representedClassName="PhotoDetails" syncable="YES">
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
+        <attribute name="imagePath" optional="YES" attributeType="String"/>
+        <attribute name="titleText" optional="YES" attributeType="String"/>
+        <relationship name="pin_details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PinDetails" inverseName="details_of_photos" inverseEntity="PinDetails"/>
+    </entity>
+    <entity name="PinDetails" representedClassName="PinDetails" syncable="YES">
+        <attribute name="latCoordinate" optional="YES" attributeType="String"/>
+        <attribute name="longCoordinate" optional="YES" attributeType="String"/>
+        <relationship name="details_of_photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PhotoDetails" inverseName="pin_details" inverseEntity="PhotoDetails"/>
+    </entity>
+    <elements>
+        <element name="PhotoDetails" positionX="-53.75390625" positionY="35.2578125" width="128" height="103"/>
+        <element name="PinDetails" positionX="-365.91015625" positionY="-1.94921875" width="128" height="88"/>
+    </elements>
+</model>
