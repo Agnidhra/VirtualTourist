@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eWh-lL-c4H">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -86,16 +87,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="26a-qw-VJu">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="732"/>
                                 <subviews>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lGR-Lq-5aQ">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="180" id="WtB-qZ-YBf"/>
+                                            <constraint firstAttribute="height" constant="180" id="WtB-qZ-YBf">
+                                                <variation key="heightClass=compact" constant="50"/>
+                                            </constraint>
                                         </constraints>
                                     </mapView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="x1Y-bg-mdQ" userLabel="Album">
-                                        <rect key="frame" x="0.0" y="180" width="414" height="594"/>
+                                        <rect key="frame" x="0.0" y="180" width="414" height="552"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Huq-W5-19D">
                                             <size key="itemSize" width="119" height="106"/>
@@ -136,7 +139,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R9e-gx-gHi" userLabel="New Collection">
-                                <rect key="frame" x="0.0" y="862" width="414" height="0.0"/>
+                                <rect key="frame" x="0.0" y="820" width="414" height="42"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="New Collection">
@@ -146,15 +149,20 @@
                                     <action selector="resetCollection:" destination="rFU-gQ-uac" eventType="touchUpInside" id="ah9-we-9BV"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="4p7-tw-oge">
+                                <rect key="frame" x="197" y="534" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="4p7-tw-oge" firstAttribute="centerY" secondItem="x1Y-bg-mdQ" secondAttribute="centerY" id="1Zv-bh-Xgd"/>
                             <constraint firstItem="R9e-gx-gHi" firstAttribute="leading" secondItem="v5C-YE-0Xq" secondAttribute="leading" id="487-Wx-Lhb"/>
                             <constraint firstItem="v5C-YE-0Xq" firstAttribute="trailing" secondItem="26a-qw-VJu" secondAttribute="trailing" id="8nY-66-v8s"/>
                             <constraint firstItem="26a-qw-VJu" firstAttribute="leading" secondItem="v5C-YE-0Xq" secondAttribute="leading" id="PHp-Yf-KVw"/>
                             <constraint firstItem="R9e-gx-gHi" firstAttribute="top" secondItem="26a-qw-VJu" secondAttribute="bottom" id="fMg-Td-FPx"/>
                             <constraint firstItem="26a-qw-VJu" firstAttribute="top" secondItem="v5C-YE-0Xq" secondAttribute="top" id="oLY-L0-YFi"/>
                             <constraint firstItem="v5C-YE-0Xq" firstAttribute="bottom" secondItem="R9e-gx-gHi" secondAttribute="bottom" id="rh0-J2-ltd"/>
+                            <constraint firstItem="4p7-tw-oge" firstAttribute="centerX" secondItem="x1Y-bg-mdQ" secondAttribute="centerX" id="yJf-AN-E1s"/>
                             <constraint firstItem="v5C-YE-0Xq" firstAttribute="trailing" secondItem="R9e-gx-gHi" secondAttribute="trailing" id="zMi-q3-P1t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v5C-YE-0Xq"/>
@@ -163,6 +171,7 @@
                     <connections>
                         <outlet property="albumCollection" destination="x1Y-bg-mdQ" id="Ovp-hq-HTd"/>
                         <outlet property="albumViewMapView" destination="lGR-Lq-5aQ" id="8cC-4T-Fd0"/>
+                        <outlet property="loadingIndicator" destination="4p7-tw-oge" id="uRU-k6-6GK"/>
                         <outlet property="newCollectionButton" destination="R9e-gx-gHi" id="lmR-jV-y8t"/>
                         <outlet property="photoCollectionViewFlowLayout" destination="Huq-W5-19D" id="oxk-B9-XOC"/>
                     </connections>

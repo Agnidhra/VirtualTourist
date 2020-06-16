@@ -17,6 +17,7 @@ class AlbumViewVC: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var albumCollection: UICollectionView!
     @IBOutlet weak var newCollectionButton: UIButton!
     @IBOutlet weak var photoCollectionViewFlowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var fetchedResultsControllerPhotoDetails: NSFetchedResultsController<PhotoDetails>!
     var shouldShowAlert = false
@@ -30,6 +31,8 @@ class AlbumViewVC: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
         setPhotoCollectionLayout(view.frame.size)
         albumViewMapView.delegate = self
         albumViewMapView.isZoomEnabled = false
@@ -41,16 +44,25 @@ class AlbumViewVC: UIViewController, MKMapViewDelegate {
         
         if let photos = pinDetails.details_of_photos, photos.count == 0 {
             getPhotosFromServices(pinDetails)
+        } else {
+            self.updateUIOnMainThread {
+                self.loadingIndicator.isHidden = true
+                self.loadingIndicator.stopAnimating()
+            }
         }
     }
     
     
     @IBAction func resetCollection(_ sender: Any) {
-           for photos in fetchedResultsControllerPhotoDetails.fetchedObjects! {
-               CoreDataStackDetails.getSharedInstance().currentMOContext.delete(photos)
-           }
-           saveCurrentContext()
-           getPhotosFromServices(pinDetails!)
+        self.updateUIOnMainThread {
+            self.loadingIndicator.isHidden = false
+            self.loadingIndicator.startAnimating()
+        }
+       for photos in fetchedResultsControllerPhotoDetails.fetchedObjects! {
+           CoreDataStackDetails.getSharedInstance().currentMOContext.delete(photos)
+       }
+       saveCurrentContext()
+       getPhotosFromServices(pinDetails!)
     }
     
     func setPhotoCollectionLayout(_ withSize: CGSize) {
@@ -106,6 +118,11 @@ class AlbumViewVC: UIViewController, MKMapViewDelegate {
             } else if let error = error {
                 self.showAlert(withTitle: "Error", message: error.localizedDescription)
             }
+            self.updateUIOnMainThread {
+                self.loadingIndicator.stopAnimating()
+                self.loadingIndicator.isHidden = true
+            }
+            
         }
     }
     
