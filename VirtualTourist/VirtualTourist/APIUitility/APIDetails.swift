@@ -58,7 +58,9 @@ class APIDetails {
         }
         let task = getCall(nil, url, parameters: [:]) { (data, error) in
             result(data, error)
-            self.actions.removeValue(forKey: imagePath)
+            if self.actions.removeValue(forKey: imagePath) != nil {
+                return
+            }
         }
 
         if actions[imagePath] == nil {
@@ -68,7 +70,11 @@ class APIDetails {
 
     func stop(_ imageUrl: String) {
         actions[imageUrl]?.cancel()
-        actions.removeValue(forKey: imageUrl)
+        if actions.removeValue(forKey: imageUrl) != nil {
+            return
+        }
     }
+    
+    
 
 }

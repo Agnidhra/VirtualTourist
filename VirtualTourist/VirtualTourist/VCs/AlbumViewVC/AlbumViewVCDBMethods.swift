@@ -17,7 +17,7 @@ extension AlbumViewVC: NSFetchedResultsControllerDelegate {
         update = [IndexPath]()
     }
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at index: IndexPath?, for type: NSFetchedResultsChangeType, newIndex: IndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at index: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath newIndex: IndexPath?) {
         
         switch (type) {
         case .insert:
